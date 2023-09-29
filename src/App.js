@@ -17,16 +17,29 @@ function App() {
     setError(err.message);
   }
   );
+
 }else{
   setError("Geolocation is not available in your browser");
 }
+  return(()=>{
+    Geolocation.clearWatch()})
+},[]);
   return (
     <div className="App">
-      <header className="App-header">
+      {location ? (
+        <div>
+          <p>Latitude: { location.latitude }</p>
+          <p>Longitude: { location. longitude }</p>
+        </div>
+      ):{
+        <p>Lodaing</p>
+      }}
 
+      <header className="App-header">
+        <h1>This My Header</h1>
       </header>
     </div>
   );
 }
 
-export default App;
+ export default App;
