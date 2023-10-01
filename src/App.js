@@ -3,40 +3,63 @@ import './App.css';
 
 function App() {
 
+  //state//
   const [location, setLocation] =useState(null);
   const[error, setError] = useState(null);
+  //
+  //geo functions
+  const getPosition = (position)=>{
+    const { latitude, longitude } = position.coords;
+    setLocation({latitude, longitude });
+  };
 
-  useEffect(()=>{
-    if("geolocation" in navigator){
-      navigator.geolocation.getCurrentPosition(
-        (position)=>{
-          const{ latitude, longitude} = position.coords;
-          setLocation({ latitude, longitude });
-    },
-  (err)=>{
+  const postError = (err)=>{
     setError(err.message);
   }
-  );
+  //
+  //useEffect Hook
+  useEffect(()=>{
+    if("geolocation" in navigator){
+      navigator.geolocation.getCurrentPosition(getPosition,postError);
+    } else {
+      setError("Geolocation is not available");
+    }
+  },[]);
 
-}else{
-  setError("Geolocation is not available in your browser");
-}
-  return(()=>{
-    Geolocation.clearWatch()})
-},[]);
+//   useEffect(()=>{
+//     if("geolocation" in navigator){
+//       navigator.geolocation.getCurrentPosition(
+//         (position)=>{
+//           const{ latitude, longitude} = position.coords;
+//           setLocation({ latitude, longitude });
+//     },
+//   (err)=>{
+//     setError(err.message);
+//   }
+//   );
+
+// }else{
+//   setError("Geolocation is not available in your browser");
+// }
+//   return(()=>{
+//     Geolocation.clearWatch()})
+// },[]);
   return (
     <div className="App">
       {location ? (
         <div>
           <p>Latitude: { location.latitude }</p>
-          <p>Longitude: { location. longitude }</p>
+          <p>Longitude: { location.longitude }</p>
         </div>
-      ):{
-        <p>Lodaing</p>
-      }}
+      ):(
+        <>
+        <h1>Error:</h1>
+        <h2>{error}</h2>
+        </>
+      )}
 
       <header className="App-header">
-        <h1>This My Header</h1>
+        <h1>Please Remember to bring in your bag!</h1>
       </header>
     </div>
   );
