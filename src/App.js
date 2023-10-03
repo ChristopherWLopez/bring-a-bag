@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import './App.css';
+import CustomForm from './components/CustomForm';
 
-function App() {
+function App({props}) {
 
   //state//
   const [location, setLocation] =useState(null);
@@ -48,6 +49,7 @@ function App() {
     <div className="App">
       {location ? (
         <div>
+          <h4>{props.CustomForm}</h4>
           <p>Latitude: { location.latitude }</p>
           <p>Longitude: { location.longitude }</p>
         </div>
