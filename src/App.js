@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
-import CustomForm from './components/CustomForm';
+import CustomForm from './components/customForm/CustomForm';
+import { Provider } from 'react-redux';
 
 function App({props}) {
 
