@@ -10,11 +10,13 @@ const CustomForm = () => {
   return (
     <div>
         <form onSubmit={UserInput}>
-            <label>
-                <input type="text" >
+            <label> Enter your Custom message:
+                <input type="text"
+                value ={userInput}
+                onChange={(e)=>setUserInput(e.target.value)}
+                 />
             </label>
         </form>
-      
     </div>
   )
 }
