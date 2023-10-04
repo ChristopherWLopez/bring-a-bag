@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
-import CustomForm from './components/customForm/CustomForm';
-import { Provider } from 'react-redux';
+// import CustomForm from './components/customForm/CustomForm';
+// import { Provider } from 'react-redux';
 
 function App({props}) {
 
@@ -10,42 +10,42 @@ function App({props}) {
   const[error, setError] = useState(null);
   //
   //geo functions
-  const getPosition = (position)=>{
-    const { latitude, longitude } = position.coords;
-    setLocation({latitude, longitude });
-  };
+  // const getPosition = (position)=>{
+  //   const { latitude, longitude } = position.coords;
+  //   setLocation({latitude, longitude });
+  // };
 
-  const postError = (err)=>{
-    setError(err.message);
-  }
-  //
-  //useEffect Hook
+  // const postError = (err)=>{
+  //   setError(err.message);
+  // }
+  // //
+  // //useEffect Hook
+  // useEffect(()=>{
+  //   if("geolocation" in navigator){
+  //     navigator.geolocation.getCurrentPosition(getPosition,postError);
+  //   } else {
+  //     setError("Geolocation is not available");
+  //   }
+  // },[]);
+
   useEffect(()=>{
     if("geolocation" in navigator){
-      navigator.geolocation.getCurrentPosition(getPosition,postError);
-    } else {
-      setError("Geolocation is not available");
-    }
-  },[]);
+      navigator.geolocation.getCurrentPosition(
+        (position)=>{
+          const{ latitude, longitude} = position.coords;
+          setLocation({ latitude, longitude });
+    },
+  (err)=>{
+    setError(err.message);
+  }
+  );
 
-//   useEffect(()=>{
-//     if("geolocation" in navigator){
-//       navigator.geolocation.getCurrentPosition(
-//         (position)=>{
-//           const{ latitude, longitude} = position.coords;
-//           setLocation({ latitude, longitude });
-//     },
-//   (err)=>{
-//     setError(err.message);
-//   }
-//   );
-
-// }else{
-//   setError("Geolocation is not available in your browser");
-// }
+}else{
+  setError("Geolocation is not available in your browser");
+}
 //   return(()=>{
 //     Geolocation.clearWatch()})
-// },[]);
+},[]);
   return (
     <div className="App">
       {location ? (
